@@ -27,7 +27,7 @@ export default class Asteroid extends Phaser.Physics.Arcade.Sprite {
         this.setVisible(true);
 
         let xOrigin = Phaser.Math.RND.between(0, 800);
-        let yOrigin = 50;
+        let yOrigin = 600 * Phaser.Math.RND.between(0,1);
         this.setPosition(xOrigin, yOrigin);
         
 
