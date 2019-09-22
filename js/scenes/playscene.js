@@ -9,6 +9,7 @@ export default class PlayScene extends Phaser.Scene {
         this.asteroidElapsedTime = 3000;
         this.gameOver = false;
         this.score =0;
+        this.lives = 3;
         
     }
 
@@ -112,13 +113,30 @@ export default class PlayScene extends Phaser.Scene {
     }
 
     hitShip(ship, asteroid) {
-        this.physics.pause();
-        this.asteroidsTimedEvent.paused = true;
-        
-        this.ship.setTint(0xff0000);
-        this.ship.body.allowRotation = false;
+        asteroid.disableBody(true, true);
+        if(this.lives==1){
+            console.log(this.lives);
+            this.lives =0;
+            this.physics.pause();
+            this.asteroidsTimedEvent.paused = true;
+            this.ship.setTint(0xff0000);
+            this.ship.body.allowRotation = false;
+            this.gameOver = true;
+        }
+        else{
+            this.lives--;
+            console.log(this.lives);
+            if(this.lives ==2){
+                this.ship.setTint(0xffd400); //amarillo
+            }
+            else{
+                this.ship.setTint(0xff9000); //anaranjado
+            }
+        }
 
-        this.gameOver = true;
+                 //ff9000 naranja
+
+
     }
 
     hitShoot(shoot, asteroid) {
