@@ -12,6 +12,8 @@ export default class Asteroid extends Phaser.Physics.Arcade.Sprite {
         this.orbiting = false;
         this.direction = 0;
         this.factor = 1;
+        //Puntos de score
+        this.points =1;
         
     }
 

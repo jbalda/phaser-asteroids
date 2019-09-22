@@ -5,5 +5,6 @@ export default class QuickAsteroid extends Asteroid{
         //Escena, un x y un y, y el nombre de una textura, que ya hemos cargado (la imagen)
         super(scene,x,y,claveTextura);
         this.speed*=2;
+        this.points =2;
     }
 }

@@ -8,6 +8,8 @@ export default class PlayScene extends Phaser.Scene {
         this.lastFired = 0;
         this.asteroidElapsedTime = 3000;
         this.gameOver = false;
+        this.score =0;
+        
     }
 
     preload() {
@@ -53,6 +55,8 @@ export default class PlayScene extends Phaser.Scene {
 
         this.physics.add.overlap(this.ship, this.asteroidsGroup, this.hitShip, null, this);
         this.physics.add.collider(this.shootsGroup, this.asteroidsGroup, this.hitShoot, null, this);
+
+        this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
     }
 
     update(time, delta) {
@@ -118,6 +122,10 @@ export default class PlayScene extends Phaser.Scene {
     }
 
     hitShoot(shoot, asteroid) {
+        this.score +=asteroid.points;
         asteroid.disableBody(true, true);
+        //Para score
+       
+        this.scoreText.setText("Score: " + this.score );
     }
 }
