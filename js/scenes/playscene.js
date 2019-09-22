@@ -1,5 +1,5 @@
 import Shoot from './../gameObjects/shoot.js';
-import Asteroid from '../gameObjects/asteroid.js';
+import  AsteroidFactory  from '../gameObjects/asteroidsFactory.js';
 
 export default class PlayScene extends Phaser.Scene {
 
@@ -15,6 +15,7 @@ export default class PlayScene extends Phaser.Scene {
         this.load.image('ship', './img/ship.png');
         this.load.image('asteroid-1', './img/asteroid-1.png');
         this.load.image('shoot', './img/shoot.png');
+        this.load.image('asteroid-3', './img/asteroid-3.png');
     }
 
     create() {
@@ -98,7 +99,9 @@ export default class PlayScene extends Phaser.Scene {
     }
 
     addAsteroid() {
-        let asteroid = new Asteroid(this, 200, 300, 'asteroid-1', 0);
+        
+        //let asteroid = new Asteroid(this, 200, 300, 'asteroid-1', 0);
+        let asteroid = AsteroidFactory.makeAsteroid(Phaser.Math.RND.integerInRange(1,2),this,200,300);
         this.asteroidsGroup.add(asteroid, true);
         this.asteroidsArray.push(asteroid);
 

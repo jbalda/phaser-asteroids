@@ -1,7 +1,10 @@
 export default class Asteroid extends Phaser.Physics.Arcade.Sprite {
-
-    constructor (scene, x, y) {
-        super(scene, x, y, 'asteroid-1');
+    //asteroid-1
+    constructor (scene, x, y, textureKey) {
+        if(!textureKey){
+            textureKey = 'asteroid-1';
+        }
+        super(scene, x, y, textureKey);
 
         this.speed = Phaser.Math.GetSpeed(100, 1);
         this.direction = 0;
