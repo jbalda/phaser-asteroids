@@ -9,7 +9,7 @@ export default class PlayScene extends Phaser.Scene {
         this.asteroidElapsedTime = 3000;
         this.gameOver = false;
         this.score =0;
-        this.lives = 3;
+        this.lives = 3; //vidas
         
     }
 
@@ -19,6 +19,8 @@ export default class PlayScene extends Phaser.Scene {
         this.load.image('asteroid-1', './img/asteroid-1.png');
         this.load.image('shoot', './img/shoot.png');
         this.load.image('asteroid-3', './img/asteroid-3.png');
+        this.load.image('health-bar', './img/HealthBar.png');
+        this.load.image('health-bar-color', './img/HealthBarColor.png');
     }
 
     create() {
@@ -27,6 +29,9 @@ export default class PlayScene extends Phaser.Scene {
         this.add.image(640, 0, 'background');
         this.add.image(0, 480, 'background');
         this.add.image(640, 480, 'background');
+        this.barraVida = this.add.image(708, 58, 'health-bar').setOrigin(1);
+        this.barraVidaColor = this.add.image(700, 50, 'health-bar-color').setOrigin(1);
+        this.barraVidaColor.setTint(0x00FF00);
 
         this.ship = this.physics.add.image(400, 300, 'ship');
         this.ship.setDamping(true);
@@ -120,6 +125,8 @@ export default class PlayScene extends Phaser.Scene {
             this.physics.pause();
             this.asteroidsTimedEvent.paused = true;
             this.ship.setTint(0xff0000);
+            this.barraVidaColor.setTint(0xff0000);
+            this.barraVidaColor.displayWidth = 0;
             this.ship.body.allowRotation = false;
             this.gameOver = true;
         }
@@ -127,9 +134,13 @@ export default class PlayScene extends Phaser.Scene {
             this.lives--;
             console.log(this.lives);
             if(this.lives ==2){
+                this.barraVidaColor.setTint(0x0000ff);
+                this.barraVidaColor.displayWidth = this.barraVida.width *0.6;
                 this.ship.setTint(0xffd400); //amarillo
             }
             else{
+                this.barraVidaColor.setTint(0xff9000);
+                this.barraVidaColor.displayWidth = this.barraVida.width *0.3;
                 this.ship.setTint(0xff9000); //anaranjado
             }
         }
