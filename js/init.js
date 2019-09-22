@@ -1,5 +1,5 @@
 import PlayScene from './scenes/playscene.js';
-
+import StartScene from './scenes/startScene.js';
 const config = {
     width: 800,
     height: 600,
@@ -11,7 +11,7 @@ const config = {
             gravity: { y: 0 }
         }
     },
-    scene: [PlayScene]
-}
+    scene: [StartScene]
+};
 
 const game = new Phaser.Game(config);
