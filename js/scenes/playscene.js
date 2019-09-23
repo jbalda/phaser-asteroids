@@ -23,7 +23,7 @@ export default class PlayScene extends Phaser.Scene {
         this.load.image('health-bar-color', './img/HealthBarColor.png');
         this.load.audio('explosion','./sound/shoot-destroy-1.wav');
         this.load.audio('sonido-disparo','./sound/darkShoot.wav');
-      
+        this.load.audio('explosion-asteroide','./sound/shoot-destroy-3.wav');
     }
 
     create() {
@@ -67,8 +67,9 @@ export default class PlayScene extends Phaser.Scene {
 
         this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 
-        this.sonidoExplosion = this.sound.add('explosion',{mute:false,volume:1, loop:false, delay:0});
+        this.sonidoExplosion = this.sound.add('explosion',{mute:false,volume:4, loop:false, delay:0});
         this.sonidoDisparo = this.sound.add('sonido-disparo',{mute:false,volume:1, loop:false, delay:0});
+        this.sonidoExplosionAsteroide = this.sound.add('explosion-asteroide',{mute:false,volume:3, loop:false,delay:1000});
     }
 
     update(time, delta) {
@@ -149,6 +150,7 @@ export default class PlayScene extends Phaser.Scene {
                 this.barraVidaColor.displayWidth = this.barraVida.width *0.3;
                 this.ship.setTint(0xff9000); //anaranjado
             }
+            this.sonidoExplosionAsteroide.play();
         }
 
                  //ff9000 naranja
@@ -159,8 +161,9 @@ export default class PlayScene extends Phaser.Scene {
     hitShoot(shoot, asteroid) {
         this.score +=asteroid.points;
         asteroid.disableBody(true, true);
+        this.sonidoExplosionAsteroide.play();
+        console.log("explosion asteroide");
         //Para score
-       
         this.scoreText.setText("Score: " + this.score );
     }
 }
