@@ -21,6 +21,9 @@ export default class PlayScene extends Phaser.Scene {
         this.load.image('asteroid-3', './img/asteroid-3.png');
         this.load.image('health-bar', './img/HealthBar.png');
         this.load.image('health-bar-color', './img/HealthBarColor.png');
+        this.load.audio('explosion','./sound/shoot-destroy-1.wav');
+        this.load.audio('sonido-disparo','./sound/darkShoot.wav');
+      
     }
 
     create() {
@@ -63,6 +66,9 @@ export default class PlayScene extends Phaser.Scene {
         this.physics.add.collider(this.shootsGroup, this.asteroidsGroup, this.hitShoot, null, this);
 
         this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+
+        this.sonidoExplosion = this.sound.add('explosion',{mute:false,volume:1, loop:false, delay:0});
+        this.sonidoDisparo = this.sound.add('sonido-disparo',{mute:false,volume:1, loop:false, delay:0});
     }
 
     update(time, delta) {
@@ -82,7 +88,7 @@ export default class PlayScene extends Phaser.Scene {
 
             if (shoot) {
                 shoot.fire(this.ship.x, this.ship.y, this.ship.rotation);
-
+                this.sonidoExplosion.play();
                 this.lastFired = time + 50;
             }
         }
@@ -120,7 +126,7 @@ export default class PlayScene extends Phaser.Scene {
     hitShip(ship, asteroid) {
         asteroid.disableBody(true, true);
         if(this.lives==1){
-            console.log(this.lives);
+            this.sonidoExplosion.play();
             this.lives =0;
             this.physics.pause();
             this.asteroidsTimedEvent.paused = true;
